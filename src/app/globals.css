@@ -1,0 +1,206 @@
+@import "tailwindcss";
+
+/* =============================================================================
+   DESIGN TOKENS — Semantic CSS Custom Properties
+   Light: Architectural Gallery | Dark: Cinematic Obsidian
+   ============================================================================= */
+
+:root {
+  /* Background */
+  --bg-primary: #f8f8f9;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #f1f1f4;
+  --bg-elevated: #ffffff;
+
+  /* Typography */
+  --text-primary: #0a0a0d;
+  --text-secondary: #575767;
+  --text-muted: #8c8c99;
+
+  /* Borders */
+  --border: rgba(10, 10, 13, 0.08);
+  --border-hover: rgba(10, 10, 13, 0.22);
+
+  /* Accent — Warm Champagne */
+  --accent: #c5a880;
+  --accent-contrast: #000000;
+  --accent-subtle: rgba(197, 168, 128, 0.1);
+
+  /* Selection */
+  --selection-bg: #c5a880;
+  --selection-text: #000000;
+}
+
+.dark {
+  /* Background — Cinematic Obsidian */
+  --bg-primary: #08090a;
+  --bg-surface: #0e1013;
+  --bg-surface-hover: #14171c;
+  --bg-elevated: #1a1d24;
+
+  /* Typography */
+  --text-primary: #f5f5f7;
+  --text-secondary: #8e8e9c;
+  --text-muted: #52525e;
+
+  /* Borders — Subtle Architectural Grid */
+  --border: rgba(255, 255, 255, 0.07);
+  --border-hover: rgba(255, 255, 255, 0.18);
+
+  /* Accent — Warm Champagne / Beige */
+  --accent: #c5a880;
+  --accent-contrast: #000000;
+  --accent-subtle: rgba(197, 168, 128, 0.12);
+
+  /* Selection */
+  --selection-bg: #c5a880;
+  --selection-text: #000000;
+}
+
+/* =============================================================================
+   TAILWIND v4 THEME EXTENSION
+   Maps CSS custom properties into Tailwind utility classes
+   ============================================================================= */
+
+@theme inline {
+  /* Fonts — Headings: Figtree | Paragraphs/Body: Poppins */
+  --font-display: var(--font-figtree);
+  --font-heading: var(--font-figtree);
+  --font-figtree: var(--font-figtree);
+  --font-body: var(--font-poppins);
+  --font-poppins: var(--font-poppins);
+  --font-mono: var(--font-mono-jb);
+  --font-signature: var(--font-signature);
+  /* Aliases */
+  --font-syne: var(--font-figtree);
+  --font-jakarta: var(--font-poppins);
+
+  /* Colors mapped to tokens */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-surface-hover: var(--bg-surface-hover);
+  --color-bg-elevated: var(--bg-elevated);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+
+  --color-accent: var(--accent);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-champagne: #c5a880;
+  --color-champagne-light: #dfcaaa;
+}
+
+/* =============================================================================
+   BASE STYLES & TYPOGRAPHY
+   ============================================================================= */
+
+html {
+  /* Let Lenis have full scroll control */
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-poppins), 'Poppins', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings: Figtree font with optical-sizing: auto */
+h1, h2, h3, h4, h5, h6,
+.font-display,
+.font-heading {
+  font-family: var(--font-figtree), 'Figtree', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+/* Paragraphs: Poppins font */
+p,
+.font-body {
+  font-family: var(--font-poppins), 'Poppins', sans-serif;
+  font-style: normal;
+}
+
+/* Explicit font utility classes */
+.font-figtree {
+  font-family: var(--font-figtree), 'Figtree', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.font-poppins {
+  font-family: var(--font-poppins), 'Poppins', sans-serif;
+  font-style: normal;
+}
+
+/* Selection styling */
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+/* =============================================================================
+   TARGETED THEME TRANSITIONS
+   Only on properties that change between themes — NOT global `transition: all`.
+   This avoids interfering with GSAP/ScrollTrigger animations.
+   ============================================================================= */
+
+body,
+[data-theme-transition] {
+  transition-property: background-color, color;
+  transition-duration: var(--motion-base);
+  transition-timing-function: var(--ease-out);
+}
+
+/* =============================================================================
+   FOCUS STATES
+   Visible focus indicators for keyboard navigation
+   ============================================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =============================================================================
+   SCROLLBAR STYLING (optional, subtle)
+   ============================================================================= */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
